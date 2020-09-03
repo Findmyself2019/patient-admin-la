@@ -124,7 +124,6 @@ export default {
 .main-box
   flex 1
 .el-header
-  background-color #fff
   color: #cdcdcd
   text-align center
   line-height 65px

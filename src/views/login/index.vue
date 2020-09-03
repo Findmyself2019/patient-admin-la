@@ -2,11 +2,7 @@
   <div class="login-container">
     <div class="log-box">
       <div class="leftBg">
-        <img
-          src="@/assets/img/login-logo.png"
-          alt=""
-          width="30%"
-        />
+        <img src="@/assets/img/login-logo.png" alt="" width="30%" />
         <h2>山 东 省 精 神 卫 生 资 源 监 管</h2>
         <div class="subtitle">
           Social psychological Service Platform
@@ -70,7 +66,9 @@
                 @keyup.enter.native="handleLogin"
               />
               <span class="show-pwd" @click="showPwd">
-                <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+                <svg-icon
+                  :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
+                />
               </span>
             </el-form-item>
           </el-tooltip>
@@ -90,17 +88,14 @@
               @keyup.enter.native="handleLogin"
             />
 
-            <img
-              :src="codeUrl"
-              @click="getCode"
-              alt="验证码"
-              width="35%"
-            />
+            <img :src="codeUrl" @click="getCode" alt="验证码" width="35%" />
           </el-form-item>
-          <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">
+          <el-checkbox
+            v-model="loginForm.rememberMe"
+            style="margin:0px 0px 25px 0px;"
+          >
             记住密码
           </el-checkbox>
-          <span class="regis" @click="showDialog = true,title='请选择'">机构注册</span>
           <el-button
             :loading="loading"
             type="primary"
@@ -112,60 +107,26 @@
         </el-form>
       </div>
     </div>
-    <el-dialog
-      :title="title"
-      :visible.sync="showDialog"
-      width="480px"
-      :modal-append-to-body="false"
-    >
-      <p class="zhuce_tip">
-        *注：点击<span style="font-weight:bold;">"查看注册记录"</span>，可完善已填写未提交的注册信息，<br />或查询审核结果与审核意见。
-      </p>
-      <div class="zhuce_box">
-        <div class="gongyong newDanwei">
-          <div>
-            <router-link :to="{path:'/register'}">
-              <div class="img"></div>
-              <p class="p_txt">
-                注册新单位
-              </p>
-            </router-link>
-          </div>
-        </div>
-        <div class="gongyong zhuceJiLu" style="	border: 1px solid #4765a1;">
-          <div>
-            <router-link to="">
-              <div class="img"></div>
-              <p class="p_txt">
-                查看注册记录
-              </p>
-            </router-link>
-          </div>
-        </div>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
 <script>
 // import SocialSign from '@/components/SocialSignin'
-import {getCaptchaImage} from '@/api/user.js'
+import { getCaptchaImage } from "@/api/user.js";
 export default {
-  name: 'Login',
-  components: {
-
-  },
+  name: "Login",
+  components: {},
   data() {
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('密码长度不能低于六位'))
+        callback(new Error("密码长度不能低于六位"));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     return {
-      codeUrl:'',
-      title:'',
+      codeUrl: "",
+      title: "",
       loginForm: {
         username: "",
         password: "",
@@ -174,38 +135,42 @@ export default {
         uuid: ""
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', message:"用户名不能为空" }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }],
+        username: [
+          { required: true, trigger: "blur", message: "用户名不能为空" }
+        ],
+        password: [
+          { required: true, trigger: "blur", validator: validatePassword }
+        ],
         code: [{ required: true, trigger: "change", message: "验证码不能为空" }]
       },
-      passwordType: 'password',
+      passwordType: "password",
       capsTooltip: false,
       loading: false,
       showDialog: false,
       redirect: undefined,
       otherQuery: {}
-    }
+    };
   },
   watch: {
     $route: {
       handler: function(route) {
-        const query = route.query
+        const query = route.query;
         if (query) {
-          this.redirect = query.redirect
-          this.otherQuery = this.getOtherQuery(query)
+          this.redirect = query.redirect;
+          this.otherQuery = this.getOtherQuery(query);
         }
       },
       immediate: true
     }
   },
   created() {
-    this.getCode()
+    this.getCode();
   },
   mounted() {
-    if (this.loginForm.username === '') {
-      this.$refs.username.focus()
-    } else if (this.loginForm.password === '') {
-      this.$refs.password.focus()
+    if (this.loginForm.username === "") {
+      this.$refs.username.focus();
+    } else if (this.loginForm.password === "") {
+      this.$refs.password.focus();
     }
   },
   destroyed() {
@@ -213,55 +178,55 @@ export default {
   },
   methods: {
     //获取验证码
-    getCode(){
-      getCaptchaImage().then(res=>{
-        this.codeUrl = "data:image/gif;base64," + res.img
-        this.loginForm.uuid = res.uuid
-      })
-
+    getCode() {
+      getCaptchaImage().then(res => {
+        this.codeUrl = "data:image/gif;base64," + res.img;
+        this.loginForm.uuid = res.uuid;
+      });
     },
     checkCapslock(e) {
-      const { key } = e
-      this.capsTooltip = key && key.length === 1 && (key >= 'A' && key <= 'Z')
+      const { key } = e;
+      this.capsTooltip = key && key.length === 1 && key >= "A" && key <= "Z";
     },
     showPwd() {
-      if (this.passwordType === 'password') {
-        this.passwordType = ''
+      if (this.passwordType === "password") {
+        this.passwordType = "";
       } else {
-        this.passwordType = 'password'
+        this.passwordType = "password";
       }
       this.$nextTick(() => {
-        this.$refs.password.focus()
-      })
+        this.$refs.password.focus();
+      });
     },
     //登录
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          this.loading = true
-          this.$store.dispatch('user/login', this.loginForm)
+          this.loading = true;
+          this.$store
+            .dispatch("user/login", this.loginForm)
             .then(() => {
-              this.$router.push({ path: '/' })
-              this.loading = false
+              this.$router.push({ path: "/" });
+              this.loading = false;
             })
             .catch(() => {
-              this.loading = false
-            })
+              this.loading = false;
+            });
         } else {
-          return false
+          return false;
         }
-      })
+      });
     },
     getOtherQuery(query) {
       return Object.keys(query).reduce((acc, cur) => {
-        if (cur !== 'redirect') {
-          acc[cur] = query[cur]
+        if (cur !== "redirect") {
+          acc[cur] = query[cur];
         }
-        return acc
-      }, {})
+        return acc;
+      }, {});
     }
   }
-}
+};
 </script>
 
 <style lang="stylus">
@@ -348,7 +313,6 @@ export default {
   margin-left: 26px;
   margin-top: 10px;
 }
-
 </style>
 
 <style lang="stylus" scoped>
