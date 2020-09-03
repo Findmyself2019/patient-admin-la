@@ -77,15 +77,16 @@ export default {
 .box>>>
   .el-submenu__title
     &:hover
-      background rgba(0, 121, 254, 1) !important
+      color rgba(0, 121, 254, 1) !important
+      background #fff !important
   .el-menu-item
     &:hover
-      background rgba(0, 121, 254, 1) !important
+      color rgba(0, 121, 254, 1) !important
   ul .el-submenu__title
-    background #001529 !important
+    background #e9e9e9 !important
   ul .el-menu-item
-    background #001529 !important
+    background #e9e9e9 !important
   .el-menu-item
     &.is-active
-      background #0079fe !important
+      background #e9e9e9 !important
 </style>
