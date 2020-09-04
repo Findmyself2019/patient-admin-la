@@ -74,7 +74,9 @@ import {
   Loading,
   MessageBox,
   Message,
-  Notification
+  Notification,
+  Breadcrumb,
+  BreadcrumbItem
 } from "element-ui";
 [
   Pagination,
@@ -115,7 +117,9 @@ import {
   Tag,
   Upload,
   Link,
-  Cascader
+  Cascader,
+  Breadcrumb,
+  BreadcrumbItem
 ].forEach(item => Vue.use(item));
 Vue.use(Loading.directive);
 Vue.config.productionTip = false;

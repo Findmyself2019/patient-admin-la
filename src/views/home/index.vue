@@ -1,18 +1,18 @@
 <template>
   <el-container class="home-box">
     <el-aside :class="classObj">
-      <Aside @showTab="showTab" />
+      <Aside @showTab="showTab" :breadArr.sync="breadArr" />
     </el-aside>
     <el-container class="main-box">
-      <el-header height="65px">
-        <!-- <Header
-          :tab-array.sync="tabArray"
-          @showTab="showTab"
-          @closeAndShowTab="closeAndShowTab"
-          @jumpLoading="jumpLoading"
-          @closeLoading="closeLoading"
-        /> -->
+      <el-header height="45px">
+        <Header />
       </el-header>
+      <div style="display:flex;align-items:center;margin-left:60px">
+        <bread-item v-for="(item, index) in breadArr" :key="index">{{
+          item
+        }}</bread-item>
+      </div>
+      <h3>{{ clickName }}</h3>
       <el-main>
         <transition name="fade-transform" mode="out-in">
           <keep-alive exclude="User,Role,Menu">
@@ -29,6 +29,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
+import BreadItem from "@/components/bread-item/index";
 import Aside from "@/components/aside/index";
 import Header from "@/components/header/index";
 import Bus from "@/util/eventbus";
@@ -40,15 +41,17 @@ export default {
       varible: "",
       loading: null,
       tabLoading: false,
-      tabArray: [{ name: "overview", title: "机构信息总览" }]
+      tabArray: [{ name: "overview", title: "机构信息总览" }],
+      breadArr: []
     };
   },
   components: {
     Header,
-    Aside
+    Aside,
+    BreadItem
   },
   computed: {
-    ...mapState(["sideBar"]),
+    ...mapState(["sideBar", "clickName"]),
     classObj() {
       return {
         hideSidebar: this.sideBar,
@@ -113,7 +116,7 @@ export default {
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 @import '~@/stylus/index.styl'
-.el-container
+.el-container>>>
   width 100%
   height 100%
   background #F7F9FB
@@ -123,18 +126,24 @@ export default {
   display flex
 .main-box
   flex 1
+  background #e9eef3
+  .text:last-child
+    color #5693ff
 .el-header
   text-align center
   line-height 65px
   width 100%
+  padding 0 60px
+h3
+  margin 20px 0 10px 60px
 .el-aside
   height 100%
-  width 239px !important
+  width 200px !important
   transition width .3s ease-in-out
   &.hideSidebar
     width 50px !important
   &.openSidebar
-    width 239px !important
+    width 200px !important
   box()
   overflow-y auto
   overflow-x hidden
@@ -143,6 +152,7 @@ export default {
   background-color #E9EEF3
   color #333
   text-align center
+  padding 20px 60px
 /* fade-transform */
 .fade-transform-leave-active,
 .fade-transform-enter-active

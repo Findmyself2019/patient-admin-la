@@ -22,6 +22,7 @@
           :item="child"
           :key="child.name"
           v-on="$listeners"
+          v-bind="$attrs"
         />
         <el-menu-item
           v-else
@@ -39,10 +40,15 @@
 <script>
 import Item from "./item";
 import Bus from "@/util/eventbus.js";
+import { getMenuList } from "@/api/user";
 export default {
   name: "NavigationItem",
   data() {
-    return {};
+    return {
+      title: "",
+      menuData: [],
+      arr: []
+    };
   },
   components: {
     Item
@@ -53,6 +59,11 @@ export default {
       required: true
     }
   },
+  async created() {
+    const data = await getMenuList();
+    this.menuData = data.data;
+  },
+  watch: {},
   methods: {
     test(name, title) {
       this.$store.dispatch("setIsOrganization", false);
@@ -67,8 +78,28 @@ export default {
       Bus.$emit("changeActiveTab", name.toLowerCase());
       Bus.$emit("showSideBar", title);
       //标签页宽度过长进行移动
+      this.title = title;
       this.$store.dispatch("editClickName", title);
+      this.arr = [];
+      this.getBread(title, this.menuData, "");
       Bus.$emit("conPosition", title);
+    },
+    getBread(title, menuArr, dataSon) {
+      menuArr.forEach(item => {
+        console.log(111);
+        if (item.children) {
+          const dataSon = item;
+          this.getBread(title, item.children, dataSon);
+        } else {
+          if (item.meta.title === title) {
+            this.arr.push(dataSon.meta.title);
+            this.arr.push(title);
+            return false;
+          }
+        }
+      });
+      console.log(this.arr);
+      this.$emit("update:breadArr", this.arr);
     }
   }
 };

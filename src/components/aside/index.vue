@@ -20,6 +20,7 @@
         :key="menu.path"
         :item="menu"
         v-on="$listeners"
+        v-bind="$attrs"
       />
     </el-menu>
   </div>
@@ -84,9 +85,9 @@ export default {
 @import '~@/stylus/index.styl'
 .container
   height 100%
-  width 239px
+  width 200px
   .logo
-    width 239px
+    width 200px
     height 60px
     display flex
     align-items center
