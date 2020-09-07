@@ -19,6 +19,13 @@ module.exports = {
         pathRewrite: {
           "^/heng": ""
         }
+      },
+      "/chao": {
+        target: "http://10.68.131.131:8080",
+        changeOrigin: true,
+        pathRewrite: {
+          "^/chao": ""
+        }
       }
     }
   },

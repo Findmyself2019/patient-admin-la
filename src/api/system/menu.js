@@ -1,11 +1,12 @@
-import request from '@/utils/request'
-
+import request from '@/util/request'
+import baseURL from "@/api/config";
 // 查询菜单列表
 export function listMenu(query) {
   return request({
     url: '/system/menu/list',
     method: 'get',
-    params: query
+    params: query,
+    baseURL
   })
 }
 
@@ -13,7 +14,8 @@ export function listMenu(query) {
 export function getMenu(menuId) {
   return request({
     url: '/system/menu/' + menuId,
-    method: 'get'
+    method: 'get',
+    baseURL
   })
 }
 
@@ -21,7 +23,8 @@ export function getMenu(menuId) {
 export function treeselect() {
   return request({
     url: '/system/menu/treeselect',
-    method: 'get'
+    method: 'get',
+    baseURL
   })
 }
 
@@ -29,7 +32,8 @@ export function treeselect() {
 export function roleMenuTreeselect(roleId) {
   return request({
     url: '/system/menu/roleMenuTreeselect/' + roleId,
-    method: 'get'
+    method: 'get',
+    baseURL
   })
 }
 
@@ -38,7 +42,8 @@ export function addMenu(data) {
   return request({
     url: '/system/menu',
     method: 'post',
-    data: data
+    data: data,
+    baseURL
   })
 }
 
@@ -47,7 +52,8 @@ export function updateMenu(data) {
   return request({
     url: '/system/menu',
     method: 'put',
-    data: data
+    data: data,
+    baseURL
   })
 }
 
@@ -55,6 +61,7 @@ export function updateMenu(data) {
 export function delMenu(menuId) {
   return request({
     url: '/system/menu/' + menuId,
-    method: 'delete'
+    method: 'delete',
+    baseURL
   })
 }
