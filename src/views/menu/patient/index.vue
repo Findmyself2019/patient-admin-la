@@ -239,7 +239,12 @@
       </el-table-column>
     </table-template>
     <!-- 添加或修改参数配置对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="700px" append-to-body>
+    <el-dialog
+      :title="title"
+      :visible.sync="open"
+      width="850px"
+      :modal-append-to-body="false"
+    >
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
           <el-col :span="12">
@@ -370,7 +375,10 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="现住地址县(区):" prop="currentAddressCountyCode">
+            <el-form-item
+              label="现住地址县(区):"
+              prop="currentAddressCountyCode"
+            >
               <el-select
                 v-model="form.currentAddressCountyCode"
                 placeholder="请选择县(区)"
@@ -388,7 +396,10 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="文化程度">
-              <el-select v-model="form.educationLevel"  placeholder="请选择文化程度">
+              <el-select
+                v-model="form.educationLevel"
+                placeholder="请选择文化程度"
+              >
                 <el-option
                   v-for="dict in educationOptions"
                   :key="dict.dictValue"
@@ -400,7 +411,11 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="婚姻状况">
-              <el-select v-model="form.maritalStatus" multiple placeholder="请选择婚姻状况">
+              <el-select
+                v-model="form.maritalStatus"
+                multiple
+                placeholder="请选择婚姻状况"
+              >
                 <el-option
                   v-for="dict in maritalOptions"
                   :key="dict.dictValue"
@@ -411,15 +426,18 @@
             </el-form-item>
           </el-col>
         </el-row>
-          <el-row>
+        <el-row>
           <el-col :span="12">
             <el-form-item label="文化程度">
-              <el-input v-model="form.nation"  placeholder="请选择民族" />
+              <el-input v-model="form.nation" placeholder="请选择民族" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="宗教信仰">
-              <el-select v-model="form.religiousBeliefCode" placeholder="请选择宗教信仰" />
+              <el-select
+                v-model="form.religiousBeliefCode"
+                placeholder="请选择宗教信仰"
+              >
                 <el-option
                   v-for="dict in religionLisOptions"
                   :key="dict.religionCode"
@@ -430,7 +448,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-         <el-row>
+        <el-row>
           <el-col :span="12">
             <el-form-item label="月收入">
               <el-input
@@ -449,7 +467,11 @@
           </el-col>
         </el-row>
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <div
+        slot="footer"
+        class="dialog-footer"
+        style="text-align:center!important"
+      >
         <el-button type="primary" @click="submitForm">确 定</el-button>
         <el-button @click="cancel">取 消</el-button>
       </div>
@@ -563,7 +585,7 @@ export default {
       const res = await api.dicData.getDicts("education_level");
       this.educationOptions = res.data;
     },
-     async religionLis() {
+    async religionLis() {
       const res = await api.patient.religionLis();
       this.religionLisOptions = res.data;
     },
@@ -637,8 +659,14 @@ export default {
 
 <style lang="stylus" scoped>
 @import "~@/stylus/index"
-  .container
+  .container>>>
     box()
     padding 20px
     background #fff
+    .el-form-item__label
+      width 120px!important
+    .el-input
+      width 160px
+    .el-select
+      width 160px
 </style>

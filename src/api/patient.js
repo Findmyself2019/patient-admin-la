@@ -19,7 +19,7 @@ export function addPatient(query) {
 }
 export function religionLis() {
   return request({
-    url: `common/religionLis`,
+    url: `common/religionList`,
     method: "get",
     baseURL
   });
